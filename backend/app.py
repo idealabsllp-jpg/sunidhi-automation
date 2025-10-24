@@ -15,9 +15,6 @@ def omnidim_webhook():
     try:
         data = request.form.to_dict() or request.get_json()
         print(f"Received OmniDimension data: {data}")
-        
-        # Store call data (you can save to Google Sheets later)
-        # For now, just acknowledge receipt
         return jsonify({"status": "received"}), 200
     except Exception as e:
         print(f"Error: {e}")
@@ -42,12 +39,7 @@ def submit_lead():
         name = data.get("name")
         phone = data.get("phone")
         product = data.get("product")
-        
         print(f"New lead: {name}, {phone}, interested in {product}")
-        
-        # You'll add Google Sheets integration here later
         return jsonify({"status": "success", "message": "Lead saved!"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-
-  Add Flask backend app.py
