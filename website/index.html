@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Sunidhi Fashion</title>
+<style>body{font-family:Arial;background:#667eea;margin:0;padding:20px;}
+.container{max-width:600px;margin:0 auto;background:white;padding:40px;border-radius:15px;text-align:center;}
+button{padding:12px 25px;font-size:1em;border:none;border-radius:8px;cursor:pointer;margin:10px 5px;}
+.btn-call{background:#28a745;color:white;}
+.btn-buy{background:#667eea;color:white;}
+input,select{width:100%;padding:10px;margin:10px 0;border:1px solid #ddd;border-radius:5px;}
+</style></head>
+<body>
+<div class="container">
+<h1>Sunidhi Fashion</h1>
+<p>Exclusive Fashion Collection</p>
+<button class="btn-call" onclick="alert('Call feature coming soon!')">📞 Call Us</button>
+<button class="btn-buy" onclick="document.getElementById('form').style.display='block'">💳 Express Interest</button>
+<div id="form" style="display:none;text-align:left;margin-top:20px;">
+<input type="text" placeholder="Your Name">
+<input type="tel" placeholder="Phone Number">
+<select><option>Select Interest</option><option>Sarees</option><option>Kurtis</option></select>
+<button class="btn-buy" onclick="alert('Thank you! We will contact you soon.')">Submit</button>
+</div>
+</div>
+</body>
+</html>
