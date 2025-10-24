@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: sunidhi-automation-backend
+    env: python
+    region: oregon
+    plan: free
+    branch: main
+    repo: https://github.com/idealabsllp-jpg/sunidhi-automation
+    rootDir: backend
+    startCommand: pip install -r requirements.txt && python app.py
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PORT
+        value: 10000
+
+  - type: static_site
+    name: sunidhi-automation-website
+    env: static
+    region: oregon
+    plan: free
+    branch: main
+    repo: https://github.com/idealabsllp-jpg/sunidhi-automation
+    staticPublishPath: website
+    buildCommand: echo "Static site ready"
