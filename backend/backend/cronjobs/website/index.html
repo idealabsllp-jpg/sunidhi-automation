@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunidhi Fashion - Automation MVP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .tagline {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .product-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .product-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 25px;
+            font-size: 1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+        }
+        
+        .btn-call {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-call:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-buy {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .form-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: left;
+        }
+        
+        .form-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #999;
+            font-size: 0.9em;
+        }
+        
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Sunidhi Fashion</h1>
+        <p class="tagline">Exclusive Fashion Collection</p>
+        
+        <div class="product-section">
+            <h2>🎨 Latest Collection</h2>
+            <p>Discover our premium clothing line designed for style and comfort.</p>
+            <div class="buttons">
+                <button class="btn-call" onclick="callUs()">📞 Call Us Now</button>
+                <button class="btn-buy" onclick="viewForm()">💳 Express Interest</button>
+            </div>
+        </div>
+        
+        <div class="form-section" id="formSection" style="display: none;">
+            <h3>Share Your Interest</h3>
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="tel" id="phone" placeholder="Your Phone Number" required>
+            <select id="product" required>
+                <option value="">-- Select Interest --</option>
+                <option value="Sarees">Sarees</option>
+                <option value="Kurtis">Kurtis</option>
+                <option value="Lehengas">Lehengas</option>
+                <option value="Dresses">Dresses</option>
+                <option value="Other">Other</option>
+            </select>
+            <button class="btn-buy" onclick="submitForm()">Submit</button>
+            <div id="status" class="status"></div>
+        </div>
+        
+        <div class="footer">
+            <p>Sunidhi Fashion Automation MVP | Powered by OmniDimension AI</p>
+        </div>
+    </div>
+    
+    <script>
+        function callUs() {
+            alert("📞 Thank you! Our team will call you shortly at your registered number.");
+            // Later, this will trigger OmniDimension voice call
+        }
+        
+        function viewForm() {
+            document.getElementById("formSection").style.display = "block";
+            document.getElementById("formSection").scrollIntoView({ behavior: "smooth" });
+        }
+        
+        function submitForm() {
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const product = document.getElementById("product").value;
+            const statusDiv = document.getElementById("status");
+            
+            if (!name || !phone || !product) {
+                statusDiv.textContent = "❌ Please fill all fields";
+                statusDiv.className = "status error";
+                return;
+            }
+            
+            // Send data to backend
+            fetch("/submit-lead", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name, phone, product })
+            })
+            .then(response => response.json())
+            .then(data => {
+                statusDiv.textContent = "✅ Thank you! We'll contact you soon.";
+                statusDiv.className = "status success";
+                setTimeout(() => {
+                    document.getElementById("formSection").style.display = "none";
+                    document.getElementById("name").value = "";
+                    document.getElementById("phone").value = "";
+                    document.getElementById("product").value = "";
+                }, 2000);
+            })
+            .catch(error => {
+                statusDiv.textContent = "❌ Error: " + error;
+                statusDiv.className = "status error";
+            });
+        }
+    </script>
+</body>
+</html>
+Add landing page for Sunidhi Fashion
