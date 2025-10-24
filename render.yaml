@@ -7,7 +7,7 @@ services:
     branch: main
     repo: https://github.com/idealabsllp-jpg/sunidhi-automation
     rootDir: backend
-    startCommand: pip install -r requirements.txt && python app.py
+    startCommand: pip install -r requirements.txt && gunicorn --workers 1 --bind 0.0.0.0:$PORT app:app
     envVars:
       - key: FLASK_ENV
         value: production
