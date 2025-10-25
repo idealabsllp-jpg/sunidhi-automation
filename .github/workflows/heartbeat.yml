@@ -1,0 +1,25 @@
+name: Keep Backend Alive
+
+on:
+  schedule:
+    # Run every 10 minutes
+    - cron: '*/10 * * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping backend health endpoint
+        run: |
+          response=$(curl -s -o /dev/null -w '%{http_code}' https://sunidhi-automation-backend.onrender.com/health)
+          echo "Health check response: $response"
+          if [ "$response" = "200" ]; then
+            echo "✅ Backend is alive!"
+            exit 0
+          else
+            echo "⚠️ Unexpected response code: $response"
+            exit 0
+          fi
+      - name: Log heartbeat
+        run: echo "Heartbeat sent at $(date)"
